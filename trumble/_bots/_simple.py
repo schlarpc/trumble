@@ -19,6 +19,8 @@ class SimpleTrumble(TrumbleCore):
         self.sessions = collections.defaultdict(dict)
         self.channels = collections.defaultdict(dict)
 
+        self.buffer = []
+
     async def on_connect(self):
         """ Immediately after connecting, both client and server exchange version info """
         version = messages.Version()
@@ -84,3 +86,8 @@ class SimpleTrumble(TrumbleCore):
         event is sent to indicate that the state is now synchronized.
         """
         logger.info('State synchronized, %d channels and %d users', len(self.channels), len(self.sessions))
+
+    async def on_udp_tunnel(self, message):
+        if message.type == messages.UDPTunnel.Opus:
+            if message.end_transmission:
+                logger.info('%s stopped talking', self.sessions[message.session_id]['name'])

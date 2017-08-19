@@ -22,10 +22,11 @@ What works:
 * Simple bot for tracking user and channel state
 
 What doesn't work yet:
-* Receiving/sending data-channel events (audio)
 * Opus support
+* Audio streaming (bidirectional) API
 
-What hasn't been tested:
+What hasn't been tested well:
+* Receiving/sending data-channel events (audio)
 * Client certificates
 * Most error conditions (network failure, access denied, etc)
 
